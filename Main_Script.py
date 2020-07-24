@@ -15,12 +15,14 @@ import sys
 # while verification == '0':
 joke = pyjokes.get_joke()
 print(joke)
-    # verification = input("are you ok with this joke?")
+
+
+# verification = input("are you ok with this joke?")
 
 def print_subscribers_number():
     count = len(subscriber_list_architecture) + len(subscriber_list_cce) + \
             len(subscriber_list_civil) + len(subscriber_list_mechanical) + len(subscriber_list_electrical)
-    print("Your total subscribers are : "  + str(count))
+    print("Your total subscribers are : " + str(count))
 
 
 def print_expired_opportunities():
@@ -45,12 +47,13 @@ def print_expired_opportunities():
         if date_time_obj < datetime.today():
             print(opp.opportunity_title)
 
+
 def send_emails():
-    send_email_department(subscriber_list_architecture, "AET", opp_list_architecture, joke,AET_LINK)
-    send_email_department(subscriber_list_cce, "CCE & HEM", opp_list_cce, joke,CCE_LINK)
-    send_email_department(subscriber_list_civil, "Civil", opp_list_civil, joke,CEM_LINK)
-    send_email_department(subscriber_list_mechanical, "Mechanical", opp_list_mechanical, joke,MED_LINK)
-    send_email_department(subscriber_list_electrical, "Electrical", opp_list_electrical, joke,EEE_LINK)
+    send_email_department(subscriber_list_architecture, "AET", opp_list_architecture, joke, AET_LINK)
+    send_email_department(subscriber_list_cce, "CCE & HEM", opp_list_cce, joke, CCE_LINK)
+    send_email_department(subscriber_list_civil, "Civil", opp_list_civil, joke, CEM_LINK)
+    send_email_department(subscriber_list_mechanical, "Mechanical", opp_list_mechanical, joke, MED_LINK)
+    send_email_department(subscriber_list_electrical, "Electrical", opp_list_electrical, joke, EEE_LINK)
 
 
 def send_whatsapp_msgs():
@@ -60,49 +63,54 @@ def send_whatsapp_msgs():
     send_msg_department_group(wait, "Civil", opp_list_civil, joke)
     send_msg_department_group(wait, "Mechanical", opp_list_mechanical, joke)
     send_msg_department_group(wait, "Electrical", opp_list_electrical, joke)
+    time.sleep(5)
     driver.close()
+
 
 def send_custom_whatsapp_main(message):
     (driver, wait) = initiate_selenium()
-    send_custom_whatsapp(wait,"AET", message)
-    send_custom_whatsapp(wait,"CCE & HEM", message)
-    send_custom_whatsapp(wait,"Civil", message)
-    send_custom_whatsapp(wait,"Mechanical", message)
-    send_custom_whatsapp(wait,"Electrical", message)
+    send_custom_whatsapp(wait, "AET", message)
+    send_custom_whatsapp(wait, "CCE & HEM", message)
+    send_custom_whatsapp(wait, "Civil", message)
+    send_custom_whatsapp(wait, "Mechanical", message)
+    send_custom_whatsapp(wait, "Electrical", message)
+
 
 def send_custom_email_main(message):
-    send_custom_email(subscriber_list_architecture,message)
+    send_custom_email(subscriber_list_architecture, message)
     send_custom_email(subscriber_list_cce, message)
     send_custom_email(subscriber_list_civil, message)
     send_custom_email(subscriber_list_mechanical, message)
     send_custom_email(subscriber_list_electrical, message)
 
-def send_daily():
-    send_emails()
-    send_whatsapp_msgs()
 
 def send_custom(message):
     send_custom_whatsapp_main(message)
     send_custom_email_main(message)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     op1 = ""
     op2 = ""
-    if len(sys.argv) == 1 :
-        op1 = input("Do you want to send custom or daily messages ? \n1-Custom \n2-Daily\n3-else\n")
+    if len(sys.argv) == 1:
+        op1 = input(
+            "Do you want to send custom or daily messages ? \n1-Custom \n2-Daily emails\n3-Daily whastapp\n4-else\n")
     else:
         op1 = sys.argv[1]
 
-    if(op1 == "1"):
+    if op1 == "1":
         message = input("Enter you custom message : \n")
         send_custom(message)
     elif op1 == "2":
-        send_daily()
+        send_emails()
+    elif op1 == "3":
+        send_whatsapp_msgs()
     else:
-        print("you chose 3")
         op2 = input("1-print all subscribers number\n2-print all expired opportunities\n")
         if op2 == "1":
             print_subscribers_number()
         else:
             print_expired_opportunities()
+    print(
+        "-----------------------------------------------------\nran on : " + str(datetime.today().day) + "/" + str(
+            datetime.today().month) + "\n-----------------------------------------------------")
