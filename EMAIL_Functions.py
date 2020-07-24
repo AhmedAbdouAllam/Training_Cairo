@@ -35,7 +35,7 @@ def send_email_department(department_subscribers, department_name, department_op
                                                                                                                                                                                     "</ul>" \
                                                                                                                                                                                     "</li><br>"
 
-                var_internships += "</ol>"
+            var_internships += "</ol>"
         else:
             var_internships="<p>Unfortunately there is no Opportunities</p>"
 
