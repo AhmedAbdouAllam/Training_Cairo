@@ -5,6 +5,7 @@ from DataBase_Handler import *
 from Credintials import *
 import pyjokes
 from datetime import datetime
+import sys
 
 # 1)connect with the data base
 # 2)get the following lists of subscriber and opportunity objects
@@ -86,15 +87,22 @@ def send_custom(message):
 
 if __name__ == "__main__":
 
-    val = input("Do you want to send custom or daily messages ? \n1-Custom \n2-Daily\n3-else\n")
-    if(val == "1"):
+    op1 = ""
+    op2 = ""
+    if len(sys.argv) == 1 :
+        op1 = input("Do you want to send custom or daily messages ? \n1-Custom \n2-Daily\n3-else\n")
+    else:
+        op1 = sys.argv[1]
+
+    if(op1 == "1"):
         message = input("Enter you custom message : \n")
         send_custom(message)
-    elif val == "2":
+    elif op1 == "2":
         send_daily()
     else:
-        val = input("1-print all subscribers number\n2-print all expired opportunities\n")
-        if val == "1":
+        print("you chose 3")
+        op2 = input("1-print all subscribers number\n2-print all expired opportunities\n")
+        if op2 == "1":
             print_subscribers_number()
         else:
             print_expired_opportunities()
